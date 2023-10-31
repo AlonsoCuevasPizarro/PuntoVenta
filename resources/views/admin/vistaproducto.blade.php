@@ -94,7 +94,12 @@
                         columns: ':visible:not(:last-child)'
                     }
                 }
-            ]
+            ],
+            // Configuración para centrar los campos
+            columnDefs: [{
+                targets: [0, 1, 2, 3, 4, 5], // Índices de las columnas a centrar (ajusta según tu estructura)
+                className: 'text-center'
+            }]
         });
 
         // Función para aplicar el filtro por categoría
