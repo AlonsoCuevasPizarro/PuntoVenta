@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\VentController;
 //use App\Http\Controllers\VehiclesController;
 use App\Models\Category;
 use App\Models\User;
@@ -34,17 +35,19 @@ Route::group(['prefix' => '/register'], function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+Route::get('/agregarEliminar', [ProductsController::class, 'index'])->name('Agregar.Eliminar')->middleware('auth');
 Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
 
 //Route::post('/vehicles', [VehiclesController::class, 'store'])->name('vehicles.store')->middleware('auth');
-Route::post('/products', [ProductsController::class, 'store'])->name('products.store')->middleware('auth');
+Route::group(['prefix' => '/products'], function () {
+    Route::post('/', [ProductsController::class, 'store'])->name('products.store')->middleware('auth');
+    Route::delete('/{id}', [ProductsController::class, 'delete'])->name('products.delete')->middleware('auth');
+    Route::get('/vista', [ProductsController::class, 'vista'])->name('products.vista')->middleware('auth');
+    Route::get('/', 'ProductsController@index');
+});
 
-
-
-//Route::delete('/vehicles/{id}', [VehiclesController::class, 'delete'])->name('vehicles.delete')->middleware('auth');
-Route::delete('/products/{id}', [ProductsController::class, 'delete'])->name('products.delete')->middleware('auth');
-
-Route::get('/products', 'ProductsController@index');
+Route::get('/registroventa', [VentController::class,'index'])->name('registro.venta');
 
 Route::get('/', function () {
     return view('welcome');

@@ -9,14 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $authenticated_user = Auth::user();
-        // dd($categories); // El dd es su mejor alternativa para depurar el código
-        $categories = Category::with('products')->orderBy('id', 'desc')->get();
-        return View('admin.home')->with([
-            'user' => $authenticated_user,
-            'categories' => $categories
-        ]);
+    public function index(){
+        return view("admin.inicio");
     }
 }
