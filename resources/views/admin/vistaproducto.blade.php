@@ -7,10 +7,25 @@
 <h1>Vista Productos</h1>
 <hr>
 
-@foreach ($categories as $key => $category)
-    <section class="mb-5">
-        <h6>Categoría: {{ $category->name }}</h6>
-        <table id="tabla-productos" class="table table-bordered datatable-table">
+{{-- Formulario de selección de categoría --}}
+        {{-- Formulario de selección de categoría --}}
+        <form id="categoryFilterForm">
+            <div class="mb-3">
+                <label for="categorySelect" class="form-label">Filtrar por Categoría:</label>
+                <select class="form-select" id="categorySelect" name="category_id">
+                    <option value="">Todas las Categorías</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="button" class="btn btn-info" onclick="applyCategoryFilter()">Aplicar Filtro</button>
+        </form>
+
+<br>
+
+         {{-- Tabla de productos --}}
+         <table id="tabla-productos" class="table table-bordered datatable-table">
             <thead>
                 <tr>
                     <th scope="col">id</th>
@@ -23,8 +38,8 @@
             </thead>
             <tbody>
                 @foreach ($products as $product)
-                    <tr>
-                        <td scope="row">{{ $product->id }}</td>
+                    <tr data-category="{{ $product->category_id }}">
+                        <td scope="row">{{ $product->category_id }}</td>
                         <td>{{ $product->barcode }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->stocks }}</td>
@@ -40,11 +55,9 @@
                 @endforeach
             </tbody>
         </table>
-    </section>
-@endforeach
-
     </div>
 </main>
+
 
 {{-- scripts de plugins para DataTable --}}
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -59,33 +72,36 @@
 {{-- script configuracion de Datatable --}}
 <script>
     $(document).ready(function() {
-        $('#tabla-productos').DataTable({
+        var dataTable = $('#tabla-productos').DataTable({
             language: {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
             },
             pageLength: 10,
             dom: 'Bfrtip',
             buttons: [{
-                    // boton para exportar como excel
                     extend: 'excelHtml5',
                     text: 'Exportar a Excel',
                     className: 'btn btn-success btn-sm',
                     exportOptions: {
-                        columns: ':visible:not(:last-child)' // Excluir la última columna (columna de acción)
+                        columns: ':visible:not(:last-child)'
                     }
                 },
                 {
-                    // boton para exportar como pdf
                     extend: 'pdfHtml5',
                     text: 'Exportar a PDF',
                     className: 'btn btn-danger btn-sm',
                     exportOptions: {
-                        columns: ':visible:not(:last-child)' // Excluir la última columna (columna de acción)
+                        columns: ':visible:not(:last-child)'
                     }
                 }
             ]
         });
+
+        // Función para aplicar el filtro por categoría
+        window.applyCategoryFilter = function() {
+            var categoryId = $('#categorySelect').val();
+            dataTable.columns(0).search(categoryId).draw();
+        };
     });
 </script>
-
 @endsection

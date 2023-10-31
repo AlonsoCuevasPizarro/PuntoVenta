@@ -6,7 +6,7 @@
 
         <!-- ... Tu contenido actual ... -->
 
-        <h1 class="my-4">PANTALLA - AGREGAR / ELIMINAR</h1>
+        <h1 class="my-4">AGREGAR / ELIMINAR</h1>
         <hr />
 
         @if ($errors->any())
@@ -21,7 +21,7 @@
             <form action="{{ route('categories.store') }}" method="POST">
                 @csrf
                 <input type="text" placeholder="Nombre de la categoria" name="name">
-                <input type="submit" value="Crear Categoría">
+                <input class="btn btn-info" type="submit" value="Crear Categoría">
             </form>
         </section>
         <hr />
@@ -34,6 +34,7 @@
                 @csrf
                 <span>Categorias</span>
                 <select class="form-select" name="category_id">
+                    <option>Seleccione</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
