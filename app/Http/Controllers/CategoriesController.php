@@ -17,6 +17,6 @@ class CategoriesController extends Controller
         // ya que es como si la estuvieramos llamando desde cero.
 
         // La redirección recibe el nombre que se le asigna a la ruta en el fichero de rutas.
-        return redirect()->route('home');
+        return redirect()->route('Agregar.Eliminar');
     }
 }

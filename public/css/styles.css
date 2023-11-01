@@ -11268,4 +11268,23 @@ table.dataTable tbody tr:hover {
 }
 
 
+.justificado {
+    text-align: justify;
+}
+
+.info-container {
+  border: 2px solid #ddd; /* Establece un borde sólido de 2px */
+  padding: 20px; /* Añade relleno para separar el contenido del borde */
+  margin: 10px 0; /* Añade margen para espaciar entre elementos */
+  text-align: justify;
+}
+
+.custom-input {
+  width: 70%; /* Ajusta el ancho del input según tus necesidades */
+}
+
+.custom-button {
+  width: 30%; /* Ajusta el ancho del botón según tus necesidades */
+}
+
 

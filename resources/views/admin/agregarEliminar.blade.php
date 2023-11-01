@@ -17,24 +17,24 @@
 
         {{-- creacion de categorias --}}
         <section class="section-separator">
-            <h5>Crear nuevas categorias</h5>
+            <h5>Crear nueva categoria</h5>
             <form action="{{ route('categories.store') }}" method="POST">
                 @csrf
-                <input type="text" placeholder="Nombre de la categoria" name="name">
-                <input class="btn btn-info" type="submit" value="Crear Categoría">
+                <div class="input-group mb-1">
+                    <input name="name" type="text" class="form-control" placeholder="Ingrese Categoria" aria-label="Ingrese Categoria">
+                    <button class="btn btn-info" type="submit">Crear Categoría</button>
+                  </div>
             </form>
         </section>
         <hr />
 
-
-
         <section class="section-separator">
-            <h5>Agregar un Nuevo Producto con Categoria</h5>
+            <h5>Agregar un Nuevo Producto</h5>
             <form action="{{ route('products.store') }}" method="POST">
                 @csrf
                 <span>Categorias</span>
                 <select class="form-select" name="category_id">
-                    <option>Seleccione</option>
+                    <option hidden selected>Selecciona una opción</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -59,7 +59,6 @@
                 <input type="submit" value="Agregar Producto" class="btn btn-primary mt-4">
             </form>
         </section>
-        <hr />
     </div>
 @endsection
 

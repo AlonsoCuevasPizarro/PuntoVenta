@@ -46,7 +46,7 @@ class ProductsController extends Controller
             'stocks' => $request->stocks,
             'price' => $request->price
         ]);
-        return redirect()->route('home');
+        return redirect()->route('products.vista');
     }
 
     public function delete($id)

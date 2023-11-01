@@ -4,7 +4,7 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="container">
         {{-- aca va todo el contenido de la pagina --}}
-<h1>Vista Productos</h1>
+<h1>Productos</h1>
 <hr>
 
 {{-- Formulario de selección de categoría --}}
@@ -28,22 +28,24 @@
          <table id="tabla-productos" class="table table-bordered datatable-table">
             <thead>
                 <tr>
-                    <th scope="col">id</th>
+                    <th style="visibility:collapse; display:none;" scope="col">id</th>
                     <th scope="col">Codigo de Barra</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($products as $product)
                     <tr data-category="{{ $product->category_id }}">
-                        <td scope="row">{{ $product->category_id }}</td>
+                        <td style="visibility:collapse; display:none;" scope="row">{{ $product->category_id }}</td>
                         <td>{{ $product->barcode }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->stocks }}</td>
                         <td>{{ $product->price }}</td>
+                        <td>{{ $product->category->name}}</td>
                         <td>
                             <form action="{{ route('products.delete', ['id' => $product->id]) }}" method="POST">
                                 @csrf
@@ -97,7 +99,7 @@
             ],
             // Configuración para centrar los campos
             columnDefs: [{
-                targets: [0, 1, 2, 3, 4, 5], // Índices de las columnas a centrar (ajusta según tu estructura)
+                targets: [0, 1, 2, 3, 4, 5,6 ], // Índices de las columnas a centrar (ajusta según tu estructura)
                 className: 'text-center'
             }]
         });

@@ -9,6 +9,8 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
         @stack('css')
         <style>
             body {
@@ -72,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-primary" href="{{ route('logout') }}">
+                                    <a class="btn btn-primary" href="{{ route('logout') }}">
                                         <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
                                     </a>
                                 </li>
