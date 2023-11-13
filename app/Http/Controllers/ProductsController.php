@@ -20,14 +20,15 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function vista(){
+    public function vista()
+    {
         $authenticated_user = Auth::user();
         $pruductos = Product::all();
         $categories = Category::with('products')->orderBy('id', 'desc')->get();
         return View('admin.vistaproducto')->with([
             'user' => $authenticated_user,
             'categories' => $categories,
-            'products'=> $pruductos
+            'products' => $pruductos
         ]);
     }
     public function store(Request $request)
@@ -54,5 +55,13 @@ class ProductsController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect()->route('home');
+    }
+
+    public function buscarPorCodigoBarras(Request $request)
+    {
+        $barcode = $request->input('codigoBarras');
+        $product = Product::where('codigo_barras', $barcode)->first();
+
+        return view('productos.buscar', ['product' => $product]);
     }
 }

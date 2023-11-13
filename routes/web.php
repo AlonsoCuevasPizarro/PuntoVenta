@@ -47,7 +47,18 @@ Route::group(['prefix' => '/products'], function () {
     Route::get('/', 'ProductsController@index');
 });
 
-Route::get('/registroventa', [VentController::class,'index'])->name('registro.venta');
+Route::get('/registroventa', [VentController::class, 'index'])->name('registro.venta');
+Route::get('/producto/buscar/{barcode}', 'ProductController@buscarPorCodigoBarras');
+Route::get('/producto/buscar', 'ProductoController@buscarPorCodigoBarras');
+
+
+
+use App\Http\Controllers\RegistroVentaController;
+
+Route::get('/registro.venta', [RegistroVentaController::class, 'index'])->name('registroventa');
+Route::post('/buscar-producto', [RegistroVentaController::class, 'buscarProducto'])->name('buscarProducto');
+Route::get('/limpiar-busquedas', [RegistroVentaController::class, 'limpiarBusquedas'])->name('limpiarBusquedas');
+
 
 Route::get('/', function () {
     return view('welcome');
