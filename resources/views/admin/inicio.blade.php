@@ -5,7 +5,7 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="container">
         {{-- aca va todo el contenido de la pagina --}}
-<h1>Inicio</h1>
+<h1>INICIO</h1>
 <hr>
 <div class="owl-carousel owl-theme">
     <div class="item"><img src="{{ asset('img/1.png')}}" alt="Imagen 1"></div>

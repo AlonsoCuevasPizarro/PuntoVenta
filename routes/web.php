@@ -5,11 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\VentController;
-//use App\Http\Controllers\VehiclesController;
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Product;
-//use App\Models\Vehicle;
+use App\Http\Controllers\RegistroVentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +23,7 @@ Route::group(['prefix' => '/login'], function () {
     Route::get('/', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/', [AuthController::class, 'attemptLogin'])->name('login.attempt');
 });
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['prefix' => '/register'], function () {
     Route::get('/', [AuthController::class, 'showRegister'])->name('register');
@@ -36,7 +32,7 @@ Route::group(['prefix' => '/register'], function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/agregarEliminar', [ProductsController::class, 'index'])->name('Agregar.Eliminar')->middleware('auth');
+
 Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
 
 //Route::post('/vehicles', [VehiclesController::class, 'store'])->name('vehicles.store')->middleware('auth');
@@ -44,20 +40,16 @@ Route::group(['prefix' => '/products'], function () {
     Route::post('/', [ProductsController::class, 'store'])->name('products.store')->middleware('auth');
     Route::delete('/{id}', [ProductsController::class, 'delete'])->name('products.delete')->middleware('auth');
     Route::get('/vista', [ProductsController::class, 'vista'])->name('products.vista')->middleware('auth');
+    Route::get('/agregarEliminar', [ProductsController::class, 'index'])->name('Agregar.Eliminar')->middleware('auth');
     Route::get('/', 'ProductsController@index');
 });
 
-Route::get('/registroventa', [VentController::class, 'index'])->name('registro.venta');
-Route::get('/producto/buscar/{barcode}', 'ProductController@buscarPorCodigoBarras');
-Route::get('/producto/buscar', 'ProductoController@buscarPorCodigoBarras');
+Route::get('/producto/buscar/{barcode}', 'ProductController@buscarPorCodigoBarras')->middleware('auth');
+Route::get('/producto/buscar', 'ProductoController@buscarPorCodigoBarras')->middleware('auth');
 
 
-
-use App\Http\Controllers\RegistroVentaController;
-
-Route::get('/registro.venta', [RegistroVentaController::class, 'index'])->name('registroventa');
-Route::post('/buscar-producto', [RegistroVentaController::class, 'buscarProducto'])->name('buscarProducto');
-Route::get('/limpiar-busquedas', [RegistroVentaController::class, 'limpiarBusquedas'])->name('limpiarBusquedas');
+Route::get('/registroventa', [RegistroVentaController::class, 'index'])->name('registroventa')->middleware('auth');
+Route::post('/buscar-producto', [RegistroVentaController::class, 'buscarProducto'])->name('buscarProducto')->middleware('auth');
 
 
 Route::get('/', function () {
